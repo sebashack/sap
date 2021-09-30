@@ -1,0 +1,26 @@
+* Control Word
+CP EP LM ER LI EI LA EA AD SU MU DI EU LB LO
+
+* Instructions
+
+HEX | BINARY | INSTRUCTION
+0   | 0000   | CALL
+1   | 0001   | OP1
+2   | 0010   | ADD
+3   | 0011   | OP2
+4   | 0100   | GOTO
+5   | 0101   | MOD
+6   | 0110   | DEC
+7   | 0111   | MUL
+8   | 1000   | RETURN
+9   | 1001   | HLT
+A   | 1010   | DIV
+B   | 1011   | OP3
+C   | 1100   | INC
+D   | 1101   | SUB
+E   | 1110   | LDA
+F   | 1111   | OUT
+
+* Convention
+
+Least Significant Bit (LSB) is the rightmost bit.
