@@ -1,0 +1,22 @@
+* Operations
+
+FAC(INC(15 % 4)) / 0 = EEU
+
+* Program
+
+R0   LDA  RF    EF
+R1   MOD  RE    5E
+R2   INC  XX    C0
+R3   CALL RB    0A
+R4   DIV  RD    AD
+R5   ---  --    --
+R6   ---  --    --
+R7   ---  --    --
+R8   ---  --    --
+R9   ---  --    --
+R10  FAC  XX    30
+R11  OUT  XX    F0
+R12  RET  XX    80
+R13  0
+R14  4
+R15  15

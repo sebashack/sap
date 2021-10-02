@@ -1,0 +1,22 @@
+* Operations
+
+INC(INC(sqrt((15 % 4) * 2 * 6))) * 15 = 120
+
+* Program
+
+R0   LDA  RF    EF
+R1   MOD  RE    5E
+R2   GOTO R9    49
+R3   SQRT --    B0
+R4   INC  X     C0
+R5   INC  X     C0
+R6   MUL  RF    7F
+R7   OUT  X     F0
+R8   HTL  X     90
+R9   MUL  RD    7D
+R10  MUL  RC    7C
+R11  GOTO R3    43
+R12  6
+R13  2
+R14  4
+R15  15

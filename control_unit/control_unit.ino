@@ -202,15 +202,6 @@ void simpleArithOp(byte pin)
     dispatchSwitches(EU, LA);
 }
 
-
-void reloadAccum()
-{
-    dispatchSwitches(EP, LM);
-    dispatchSwitches(ER, LI);
-    dispatchSwitches(EI, LM);
-    dispatchSwitches(ER, LA);
-}
-
 void setDisplay(byte d0, byte v0, byte d1, byte v1, byte d2, byte v2)
 {
     digitalWrite(d0, v0);
@@ -318,6 +309,8 @@ void loop()
     if (digitalRead(DIV))
     {
         Serial.println("INPUT: DIV");
+        dispatchSwitches(EI, LM);
+        dispatchSwitches(ER, LB);
 
         byte n = PINA;
 
@@ -335,13 +328,15 @@ void loop()
                 delay(1);
 
                 setDisplay(TN, 0, HN, 0, UN, 1);
-                PORTF = 121;
+                PORTF = 62;
                 delay(1);
             }
         }
         else
         {
-            simpleArithOp(DI);
+            digitalWrite(DI, 1);
+            digitalWrite(DI, 0);
+            dispatchSwitches(EU, LA);
         }
 
         cp();
@@ -351,6 +346,35 @@ void loop()
     {
         Serial.println("INPUT: MOD");
         readCurrentIns();
+
+        dispatchSwitches(EI, LM);
+        dispatchSwitches(ER, LB);
+
+        byte b = PINA;
+        dispatchSwitches(EA, LB);
+        byte a = PINA;
+
+        resetAccum();
+
+        // Reestablish B Register
+        for (byte i = b; i > 0; i--)
+        {
+            increment();
+        }
+
+        dispatchSwitches(EA, LB);
+
+        for (byte i = b; i > 0; i--)
+        {
+            decrement();
+        }
+
+        // Reestablish Accum
+        for (byte i = a; i > 0; i--)
+        {
+            increment();
+        }
+
         simpleArithOp(DI);
 
         digitalWrite(MU, 1);
@@ -358,8 +382,18 @@ void loop()
         dispatchSwitches(EU, LA);
         dispatchSwitches(EA, LB);
 
-        loadInstruction(lda[0], lda[1], lda[2], lda[3]);
-        reloadAccum();
+        byte result = PINA;
+
+        for (byte i = result; i > 0; i--)
+        {
+            decrement();
+        }
+
+        // Reestablish Accum
+        for (byte i = a; i > 0; i--)
+        {
+            increment();
+        }
 
         digitalWrite(SU, 1);
         digitalWrite(SU, 0);
@@ -440,8 +474,17 @@ void loop()
 
                 if (i < n - 1)
                 {
-                    loadInstruction(lda[0], lda[1], lda[2], lda[3]);
-                    reloadAccum();
+                    byte result = PINA;
+
+                    for (byte j = result; j > 0; j--)
+                    {
+                        decrement();
+                    }
+
+                    for (byte j = n; j > 0; j--)
+                    {
+                        increment();
+                    }
                 }
             }
 
@@ -481,8 +524,6 @@ void loop()
                 dispatchSwitches(EA, LB);
 
                 i = PINA;
-                Serial.print("i=");
-                Serial.println(i);
 
                 digitalWrite(MU, 1);
                 digitalWrite(MU, 0);
@@ -490,9 +531,6 @@ void loop()
                 dispatchSwitches(EA, LB);
 
                 result = PINA;
-                Serial.print("result=");
-                Serial.println(result);
-
                 resetAccum();
 
                 for (byte j = i; j >0; j--)
@@ -522,7 +560,7 @@ void loop()
         dispatchSwitches(EA, LB);
         byte result = PINA;
 
-        for (int i = 0; i < 500; i++)
+        for (int i = 0; i < 550; i++)
         {
             show(result);
         }
