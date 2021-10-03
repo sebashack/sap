@@ -134,15 +134,6 @@ void readCurrentIns()
     ci[3] = digitalRead(CI3);
 }
 
-byte lda[4] = {0,0,0,0};
-void readLDAaddr()
-{
-    lda[0] = digitalRead(CI0);
-    lda[1] = digitalRead(CI1);
-    lda[2] = digitalRead(CI2);
-    lda[3] = digitalRead(CI3);
-}
-
 byte jumpAddr[4] = {0,0,0,0};
 void readJumpAddr()
 {
@@ -280,7 +271,6 @@ void loop()
         Serial.println("INPUT: LDA");
         dispatchSwitches(EI, LM);
         dispatchSwitches(ER, LA);
-        readLDAaddr();
 
         cp();
     }
