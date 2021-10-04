@@ -335,8 +335,6 @@ void loop()
     if (digitalRead(MOD))
     {
         Serial.println("INPUT: MOD");
-        readCurrentIns();
-
         dispatchSwitches(EI, LM);
         dispatchSwitches(ER, LB);
 
@@ -389,7 +387,6 @@ void loop()
         digitalWrite(SU, 0);
         dispatchSwitches(EU, LA);
 
-        loadInstruction(ci[0], ci[1], ci[2], ci[3]);
         cp();
     }
 
