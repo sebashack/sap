@@ -437,7 +437,6 @@ void loop()
     if (digitalRead(OP2))
     {
         Serial.println("INPUT: OP2 (FACTORIAL)");
-        readCurrentIns();
         dispatchSwitches(EA, LB);
 
         byte n = PINA;
@@ -474,15 +473,12 @@ void loop()
                     }
                 }
             }
-
-            loadInstruction(ci[0], ci[1], ci[2], ci[3]);
         }
 
         if (n == 0)
         {
             increment();
         }
-
 
         cp();
     }
@@ -503,7 +499,6 @@ void loop()
             dispatchSwitches(EA, LB);
 
             byte result = PINA;
-
             byte i;
             while(result <= n)
             {
@@ -520,7 +515,7 @@ void loop()
                 result = PINA;
                 resetAccum();
 
-                for (byte j = i; j >0; j--)
+                for (byte j = i; j > 0; j--)
                 {
                     increment();
                 }
