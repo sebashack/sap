@@ -52,7 +52,7 @@
 
 
 #define CLK      53
-#define CLK_FREQ 10
+#define CLK_FREQ 5
 
 #define HN 30
 #define TN 31
