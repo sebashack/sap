@@ -339,6 +339,25 @@ void loop()
         dispatchSwitches(ER, LB);
 
         byte b = PINA;
+        if (b == 0)
+        {
+            Serial.println("Mod by 0.");
+            while(true)
+            {
+                setDisplay(TN, 0, UN, 0, HN, 1);
+                PORTF = 121;
+                delay(1);
+
+                setDisplay(HN, 0, UN, 0, TN, 1);
+                PORTF = 121;
+                delay(1);
+
+                setDisplay(TN, 0, HN, 0, UN, 1);
+                PORTF = 62;
+                delay(1);
+            }
+        }
+
         dispatchSwitches(EA, LB);
         byte a = PINA;
 
